@@ -1,0 +1,24 @@
+buildscript {
+    repositories {
+        maven {
+            url "http://repo1.maven.org/maven2"
+        }
+    }
+    dependencies {
+        classpath 'mysql:mysql-connector-java:8.0.12'
+        classpath "org.flywaydb:flyway-gradle-plugin:5.2.4"
+    }
+}
+
+apply plugin: 'org.flywaydb.flyway'
+
+group = 'be.pvgroup.databases'
+version = '0.0.1-SNAPSHOT'
+
+flyway {
+    url = "jdbc:mysql://dbvconnectmitrio${environment}.pvgroup.intranet:3309/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
+    user = "${username}"
+    password = "${pass}"
+    baselineOnMigrate = true
+    schemas = ["vconnect_mitrio_${track}"]
+}
